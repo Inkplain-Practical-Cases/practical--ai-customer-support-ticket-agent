@@ -1,18 +1,51 @@
 # AI Customer Support Ticket Agent
 
-Build a beginner-friendly AI support agent for fictional SaaS company Northstar Support. It classifies incoming email and chat requests by intent and urgency, validates structured LLM output, matches customers, and creates PostgreSQL-backed tickets through authorized application tools. Study six cumulative, independently testable implementation steps using Python, FastAPI, Pydantic, OpenAI SDK, PostgreSQL, Docker Compose and an offline fake LLM.
+A beginner Inkplain practical case for fictional SaaS company Northstar Support. Incoming customer tickets are classified by a fake or OpenAI model, validated with Pydantic, matched to customers and stored in memory or PostgreSQL. Backend-validated tool calls protect customer-submitted data.
 
-An Inkplain practical case: a real project built step by step.
+## The six cumulative steps
 
-## How this repository works
+| Step | Branch | Capability |
+|---|---|---|
+| 1 | step-01-receive-and-store-tickets | FastAPI ticket API and memory store |
+| 2 | step-02-classify-support-requests | Fake/OpenAI intent and priority |
+| 3 | step-03-validate-ai-output | Strict typed model result |
+| 4 | step-04-persist-tickets-in-postgresql | Customer matching and PostgreSQL persistence |
+| 5 | step-05-invoke-ticket-tools | Trusted create_ticket tool |
+| 6 | step-06-harden-and-verify | Timeouts, safe errors, logs and integration tests |
 
-Every step of the lesson has its own branch, and each one contains all steps up to it:
+Each branch runs from its own source and has `STEP-N.crd` and `STEP-N.md`, describing its full current state. Main is the final version and has `FINAL.crd`. The Stage-3 Simulator export `ai-customer-support-ticket-agent.inkp` will be created later, not during this stage.
 
+## Local offline run (Python 3.12+)
 ```bash
 git clone https://github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent.git
 cd practical--ai-customer-support-ticket-agent
-git branch -r            # list the step branches
-git checkout step-01-…   # code after step 1
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+pytest -q
+uvicorn app.main:app --reload
 ```
 
-`main` holds the final, complete version.
+Then submit:
+```bash
+curl -X POST http://localhost:8000/tickets \
+  -H "Content-Type: application/json" \
+  -d '{"subject":"Billing issue","message":"Urgent refund of my invoice","email":"alex@example.com"}'
+```
+
+Expect HTTP 201 with `id`, `status=open`, `intent=billing` and `priority=urgent`. HTTP 422 rejects invalid input; 502 rejects invalid model output or tool arguments; 504 represents an AI timeout; 503 represents unavailable storage.
+
+## Optional PostgreSQL
+```bash
+docker compose up -d postgres
+export TICKET_STORE=postgres
+export DATABASE_URL=postgresql://northstar:local_dev_only@localhost:5432/northstar
+uvicorn app.main:app --reload
+```
+PostgreSQL is optional for offline pytest; `database/init.sql` bootstraps tables on fresh volumes. The local Docker password is for examples only and must be replaced outside development.
+
+## Optional OpenAI
+Set `CLASSIFIER_PROVIDER=openai` and `OPENAI_API_KEY` in your environment. The offline fake provider needs no key. The actual client also issues an SDK tool call; the backend always verifies the exact tool action and arguments.
+
+## Structure and diagrams
+Inkplain Codebase Structure: `router.py` door → `handle_create_ticket.py` handler → single-purpose `service_*` functions → injected classifier and storage providers. `STEP-N.crd` on each branch contains the Component Relation Diagram. The Simulator `.inkp` file is intentionally reserved for Stage 3.
