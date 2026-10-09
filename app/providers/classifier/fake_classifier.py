@@ -1,5 +1,4 @@
-# Deterministic model double: classifies Northstar ticket text without network calls.
-# Why it exists: students can reproduce results offline and debug intent routing.
+# Fully offline classifier/tool proposer for deterministic practical-case tests.
 class FakeClassifier:
     async def classify(self, message: str) -> dict:
         text = message.lower()
@@ -13,3 +12,6 @@ class FakeClassifier:
             intent = "general"
         priority = "urgent" if any(word in text for word in ("urgent", "outage", "blocked")) else "normal"
         return {"intent": intent, "priority": priority}
+    async def propose_tool(self, validated_ticket: dict) -> dict:
+        # The real SDK returns equivalent function arguments after tool selection.
+        return {"name":"create_ticket","arguments":validated_ticket}

@@ -1,4 +1,5 @@
-# Stable classifier interface: feature services depend on it, not on an SDK.
+# Supports both classification and a proposed structured ticket tool call.
 from typing import Protocol
 class Classifier(Protocol):
     async def classify(self, message: str) -> dict: ...
+    async def propose_tool(self, validated_ticket: dict) -> dict: ...
