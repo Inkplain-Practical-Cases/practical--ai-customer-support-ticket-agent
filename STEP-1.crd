@@ -1,0 +1,328 @@
+{
+  "crd_version": 1,
+  "name": "AI Customer Support Ticket Agent",
+  "description": "Northstar support ticket request from API to storage.",
+  "generated_at": "2026-10-09T16:15:00Z",
+  "source": {
+    "repo": "github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent",
+    "revision": "step-01-receive-and-store-tickets",
+    "roots": {
+      "backend": "app"
+    },
+    "stacks": [
+      "python-fastapi"
+    ]
+  },
+  "step": {
+    "no": 1,
+    "of": 6,
+    "title": "Receive and store tickets",
+    "branch": "step-01-receive-and-store-tickets",
+    "previous": null,
+    "removed": []
+  },
+  "flows": [
+    {
+      "id": "create-ticket",
+      "name": "Create ticket",
+      "description": "Receive, validate and store a ticket.",
+      "entry": "be.create_ticket"
+    }
+  ],
+  "components": [
+    {
+      "id": "be.create_ticket",
+      "name": "create_ticket",
+      "kind": "function",
+      "side": "backend",
+      "layer": "door",
+      "description": "Exposes POST /tickets and delegates to ticket orchestration.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/router.py",
+        "symbol": "create_ticket",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          15
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Exposes POST /tickets and delegates to ticket orchestration.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "call-handle_create_ticket",
+          "title": "Delegate",
+          "description": "Calls the next component in the ticket flow.",
+          "calls": {
+            "component": "be.handle_create_ticket",
+            "type": "call",
+            "label": "delegates"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.get_ticket_store",
+      "name": "get_ticket_store",
+      "kind": "function",
+      "side": "backend",
+      "layer": "config",
+      "description": "Reuses one in-memory ticket provider for incoming requests.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/core/dependencies.py",
+        "symbol": "get_ticket_store",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          11
+        ]
+      },
+      "owner": "dependencies.py",
+      "component_reason": "Reuses one in-memory ticket provider for incoming requests.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "call-InMemoryTicketStore",
+          "title": "Delegate",
+          "description": "Calls the next component in the ticket flow.",
+          "calls": {
+            "component": "be.InMemoryTicketStore",
+            "type": "call",
+            "label": "delegates"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.handle_create_ticket",
+      "name": "handle_create_ticket",
+      "kind": "function",
+      "side": "backend",
+      "layer": "handler",
+      "description": "Routes a validated customer request to the ticket service.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/handlers/handle_create_ticket.py",
+        "symbol": "handle_create_ticket",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          10
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Routes a validated customer request to the ticket service.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "call-service_create_ticket",
+          "title": "Delegate",
+          "description": "Calls the next component in the ticket flow.",
+          "calls": {
+            "component": "be.service_create_ticket",
+            "type": "call",
+            "label": "delegates"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.service_create_ticket",
+      "name": "service_create_ticket",
+      "kind": "function",
+      "side": "backend",
+      "layer": "service",
+      "description": "Creates a support ticket through a storage interface.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/services/service_create_ticket.py",
+        "symbol": "service_create_ticket",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          10
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Creates a support ticket through a storage interface.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "call-InMemoryTicketStore",
+          "title": "Delegate",
+          "description": "Calls the next component in the ticket flow.",
+          "calls": {
+            "component": "be.InMemoryTicketStore",
+            "type": "call",
+            "label": "delegates"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.InMemoryTicketStore",
+      "name": "InMemoryTicketStore",
+      "kind": "class",
+      "side": "backend",
+      "layer": "provider",
+      "description": "Stores ticket records in memory with a sequential ID.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/providers/tickets/in_memory_ticket_store.py",
+        "symbol": "InMemoryTicketStore",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          18
+        ]
+      },
+      "owner": "tickets",
+      "component_reason": "Stores ticket records in memory with a sequential ID.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.TicketStore",
+      "name": "TicketStore",
+      "kind": "class",
+      "side": "backend",
+      "layer": "schema",
+      "description": "Defines a ticket persistence provider interface.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/providers/tickets/base.py",
+        "symbol": "TicketStore",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          7
+        ]
+      },
+      "owner": "tickets",
+      "component_reason": "Defines a ticket persistence provider interface.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.TicketCreate",
+      "name": "TicketCreate",
+      "kind": "class",
+      "side": "backend",
+      "layer": "schema",
+      "description": "Validates incoming subject, message and email.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
+        "symbol": "TicketCreate",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          16
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Validates incoming subject, message and email.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    },
+    {
+      "id": "be.TicketView",
+      "name": "TicketView",
+      "kind": "class",
+      "side": "backend",
+      "layer": "schema",
+      "description": "Defines the ticket ID and status returned by the API.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
+        "symbol": "TicketView",
+        "revision": "step-01-receive-and-store-tickets",
+        "lines": [
+          1,
+          16
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Defines the ticket ID and status returned by the API.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced in Step 1."
+      }
+    }
+  ],
+  "dependencies": [],
+  "unresolved": []
+}
