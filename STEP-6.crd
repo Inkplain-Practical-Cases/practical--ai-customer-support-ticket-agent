@@ -5,7 +5,7 @@
   "generated_at": "2026-10-09T16:15:00Z",
   "source": {
     "repo": "github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent",
-    "revision": "step-05-invoke-ticket-tools",
+    "revision": "step-06-harden-and-verify",
     "roots": {
       "backend": "app"
     },
@@ -14,11 +14,11 @@
     ]
   },
   "step": {
-    "no": 5,
+    "no": 6,
     "of": 6,
-    "title": "Invoke ticket tools",
-    "branch": "step-05-invoke-ticket-tools",
-    "previous": "STEP-4.crd",
+    "title": "Harden and verify",
+    "branch": "step-06-harden-and-verify",
+    "previous": "STEP-5.crd",
     "removed": []
   },
   "flows": [
@@ -43,7 +43,7 @@
       "source": {
         "file": "app/features/feature_tickets/router.py",
         "symbol": "create_ticket",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           15
@@ -85,7 +85,7 @@
       "source": {
         "file": "app/core/dependencies.py",
         "symbol": "get_ticket_store",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           11
@@ -127,7 +127,7 @@
       "source": {
         "file": "app/features/feature_tickets/handlers/handle_create_ticket.py",
         "symbol": "handle_create_ticket",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           10
@@ -169,11 +169,21 @@
             "type": "call",
             "label": "executes"
           }
+        },
+        {
+          "id": "process",
+          "title": "Process support request",
+          "description": "Runs complete support workflow with a bounded model timeout.",
+          "calls": {
+            "component": "be.service_process_support_request",
+            "type": "call",
+            "label": "executes"
+          }
         }
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Step 5 adds model tool proposal and strict server-side ticket action validation."
+        "step_note": "Step 6 adds timeout boundaries and safe structured error events."
       }
     },
     {
@@ -189,7 +199,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_create_ticket.py",
         "symbol": "service_create_ticket",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           10
@@ -241,7 +251,7 @@
       "source": {
         "file": "app/providers/tickets/in_memory_ticket_store.py",
         "symbol": "InMemoryTicketStore",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           18
@@ -272,7 +282,7 @@
       "source": {
         "file": "app/providers/tickets/base.py",
         "symbol": "TicketStore",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           7
@@ -303,7 +313,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
         "symbol": "TicketCreate",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           16
@@ -334,7 +344,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
         "symbol": "TicketView",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           16
@@ -365,7 +375,7 @@
       "source": {
         "file": "app/core/dependencies.py",
         "symbol": "get_classifier",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           20
@@ -407,7 +417,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_classify_request.py",
         "symbol": "service_classify_request",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           6
@@ -459,7 +469,7 @@
       "source": {
         "file": "app/providers/classifier/fake_classifier.py",
         "symbol": "FakeClassifier",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           16
@@ -468,7 +478,7 @@
       "owner": "ticket_classification",
       "component_reason": "Classifies sample messages with deterministic keyword rules.",
       "status": "observed",
-      "step_change": "changed",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [],
@@ -490,7 +500,7 @@
       "source": {
         "file": "app/providers/classifier/openai_classifier.py",
         "symbol": "OpenAIClassifier",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           21
@@ -499,7 +509,7 @@
       "owner": "ticket_classification",
       "component_reason": "Requests JSON intent and priority from OpenAI chat completions.",
       "status": "observed",
-      "step_change": "changed",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [],
@@ -521,7 +531,7 @@
       "source": {
         "file": "app/providers/classifier/base.py",
         "symbol": "Classifier",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           5
@@ -530,7 +540,7 @@
       "owner": "ticket_classification",
       "component_reason": "Defines a common asynchronous classifier contract.",
       "status": "observed",
-      "step_change": "changed",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [],
@@ -552,7 +562,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_parse_classification.py",
         "symbol": "service_parse_classification",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           17
@@ -594,7 +604,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/classification_result.py",
         "symbol": "ClassificationResult",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           9
@@ -625,7 +635,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_find_customer.py",
         "symbol": "service_find_customer",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           6
@@ -667,7 +677,7 @@
       "source": {
         "file": "app/providers/tickets/postgres_ticket_store.py",
         "symbol": "PostgresTicketStore",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           36
@@ -698,7 +708,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_execute_ticket_tool.py",
         "symbol": "service_execute_ticket_tool",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           16
@@ -707,7 +717,7 @@
       "owner": "feature_tickets",
       "component_reason": "Requests and validates a tool proposal before ticket creation.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -740,7 +750,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_validate_tool_args.py",
         "symbol": "service_validate_tool_args",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           10
@@ -749,7 +759,7 @@
       "owner": "feature_tickets",
       "component_reason": "Rejects model tool arguments that differ from the validated user request.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [],
@@ -771,7 +781,7 @@
       "source": {
         "file": "app/features/feature_tickets/tool_create_ticket.py",
         "symbol": "tool_create_ticket",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           10
@@ -780,7 +790,7 @@
       "owner": "feature_tickets",
       "component_reason": "Runs the server-owned ticket-creation service after authorization.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -813,7 +823,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/tool_request.py",
         "symbol": "ToolRequest",
-        "revision": "step-05-invoke-ticket-tools",
+        "revision": "step-06-harden-and-verify",
         "lines": [
           1,
           8
@@ -822,13 +832,117 @@
       "owner": "feature_tickets",
       "component_reason": "Allows create_ticket only and forbids unexpected tool fields.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
         "step_note": "Added in Step 5."
+      }
+    },
+    {
+      "id": "be.service_process_support_request",
+      "name": "service_process_support_request",
+      "kind": "function",
+      "side": "backend",
+      "layer": "service",
+      "description": "Runs classification and tool execution with separate deadlines.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/services/service_process_support_request.py",
+        "symbol": "service_process_support_request",
+        "revision": "step-06-harden-and-verify",
+        "lines": [
+          1,
+          13
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Runs classification and tool execution with separate deadlines.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "call",
+          "title": "Delegate",
+          "description": "Dispatch to dependency.",
+          "calls": {
+            "component": "be.service_execute_ticket_tool",
+            "type": "call",
+            "label": "calls"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Added in Step 6."
+      }
+    },
+    {
+      "id": "be.service_log_ticket_event",
+      "name": "service_log_ticket_event",
+      "kind": "function",
+      "side": "backend",
+      "layer": "service",
+      "description": "Logs ticket completion or errors without sensitive message bodies.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/services/service_log_ticket_event.py",
+        "symbol": "service_log_ticket_event",
+        "revision": "step-06-harden-and-verify",
+        "lines": [
+          1,
+          7
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Logs ticket completion or errors without sensitive message bodies.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Added in Step 6."
+      }
+    },
+    {
+      "id": "be.get_timeout_seconds",
+      "name": "get_timeout_seconds",
+      "kind": "function",
+      "side": "backend",
+      "layer": "config",
+      "description": "Reads and validates request timeout configuration.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/core/config.py",
+        "symbol": "get_timeout_seconds",
+        "revision": "step-06-harden-and-verify",
+        "lines": [
+          1,
+          9
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Reads and validates request timeout configuration.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Added in Step 6."
       }
     }
   ],
