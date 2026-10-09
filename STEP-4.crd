@@ -5,7 +5,7 @@
   "generated_at": "2026-10-09T16:15:00Z",
   "source": {
     "repo": "github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent",
-    "revision": "step-03-validate-ai-output",
+    "revision": "step-04-persist-tickets-in-postgresql",
     "roots": {
       "backend": "app"
     },
@@ -14,11 +14,11 @@
     ]
   },
   "step": {
-    "no": 3,
+    "no": 4,
     "of": 6,
-    "title": "Validate AI output",
-    "branch": "step-03-validate-ai-output",
-    "previous": "STEP-2.crd",
+    "title": "Persist tickets in PostgreSQL",
+    "branch": "step-04-persist-tickets-in-postgresql",
+    "previous": "STEP-3.crd",
     "removed": []
   },
   "flows": [
@@ -43,7 +43,7 @@
       "source": {
         "file": "app/features/feature_tickets/router.py",
         "symbol": "create_ticket",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           15
@@ -85,7 +85,7 @@
       "source": {
         "file": "app/core/dependencies.py",
         "symbol": "get_ticket_store",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           11
@@ -94,7 +94,7 @@
       "owner": "dependencies.py",
       "component_reason": "Reuses one in-memory ticket provider for incoming requests.",
       "status": "observed",
-      "step_change": "unchanged",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -111,7 +111,7 @@
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Step 2 adds intent and priority through an injected classifier."
+        "step_note": "Step 4 adds customer matching and optionally swaps in PostgreSQL storage."
       }
     },
     {
@@ -127,7 +127,7 @@
       "source": {
         "file": "app/features/feature_tickets/handlers/handle_create_ticket.py",
         "symbol": "handle_create_ticket",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           10
@@ -136,7 +136,7 @@
       "owner": "feature_tickets",
       "component_reason": "Routes a validated customer request to the ticket service.",
       "status": "observed",
-      "step_change": "changed",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -179,7 +179,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_create_ticket.py",
         "symbol": "service_create_ticket",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           10
@@ -201,11 +201,21 @@
             "type": "call",
             "label": "delegates"
           }
+        },
+        {
+          "id": "match-customer",
+          "title": "Match email",
+          "description": "Resolve or create customer before saving.",
+          "calls": {
+            "component": "be.service_find_customer",
+            "type": "call",
+            "label": "matches customer"
+          }
         }
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Step 3 verifies AI output against a strict Pydantic classification contract."
+        "step_note": "Step 4 adds customer matching and optionally swaps in PostgreSQL storage."
       }
     },
     {
@@ -221,7 +231,7 @@
       "source": {
         "file": "app/providers/tickets/in_memory_ticket_store.py",
         "symbol": "InMemoryTicketStore",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           18
@@ -230,13 +240,13 @@
       "owner": "tickets",
       "component_reason": "Stores ticket records in memory with a sequential ID.",
       "status": "observed",
-      "step_change": "unchanged",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
-        "step_note": "Step 2 adds intent and priority through an injected classifier."
+        "step_note": "Step 4 adds customer matching and optionally swaps in PostgreSQL storage."
       }
     },
     {
@@ -252,7 +262,7 @@
       "source": {
         "file": "app/providers/tickets/base.py",
         "symbol": "TicketStore",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           7
@@ -261,13 +271,13 @@
       "owner": "tickets",
       "component_reason": "Defines a ticket persistence provider interface.",
       "status": "observed",
-      "step_change": "unchanged",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
-        "step_note": "Step 2 adds intent and priority through an injected classifier."
+        "step_note": "Step 4 adds customer matching and optionally swaps in PostgreSQL storage."
       }
     },
     {
@@ -283,7 +293,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
         "symbol": "TicketCreate",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           16
@@ -314,7 +324,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
         "symbol": "TicketView",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           16
@@ -345,7 +355,7 @@
       "source": {
         "file": "app/core/dependencies.py",
         "symbol": "get_classifier",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           20
@@ -354,7 +364,7 @@
       "owner": "ticket_classification",
       "component_reason": "Caches an offline fake or OpenAI classifier by configuration.",
       "status": "observed",
-      "step_change": "unchanged",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -371,7 +381,7 @@
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced by Step 2."
+        "step_note": "Step 4 adds customer matching and optionally swaps in PostgreSQL storage."
       }
     },
     {
@@ -387,7 +397,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_classify_request.py",
         "symbol": "service_classify_request",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           6
@@ -396,7 +406,7 @@
       "owner": "ticket_classification",
       "component_reason": "Asks an injected classifier to identify request intent and urgency.",
       "status": "observed",
-      "step_change": "changed",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -439,7 +449,7 @@
       "source": {
         "file": "app/providers/classifier/fake_classifier.py",
         "symbol": "FakeClassifier",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           16
@@ -470,7 +480,7 @@
       "source": {
         "file": "app/providers/classifier/openai_classifier.py",
         "symbol": "OpenAIClassifier",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           21
@@ -501,7 +511,7 @@
       "source": {
         "file": "app/providers/classifier/base.py",
         "symbol": "Classifier",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           5
@@ -532,7 +542,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_parse_classification.py",
         "symbol": "service_parse_classification",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           17
@@ -541,7 +551,7 @@
       "owner": "feature_tickets",
       "component_reason": "Converts provider output to a typed classification or rejects it.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -574,7 +584,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/classification_result.py",
         "symbol": "ClassificationResult",
-        "revision": "step-03-validate-ai-output",
+        "revision": "step-04-persist-tickets-in-postgresql",
         "lines": [
           1,
           9
@@ -583,13 +593,86 @@
       "owner": "feature_tickets",
       "component_reason": "Defines allowed intent and priority fields; forbids extra data.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "unchanged",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
         "step_note": "Added in Step 3."
+      }
+    },
+    {
+      "id": "be.service_find_customer",
+      "name": "service_find_customer",
+      "kind": "function",
+      "side": "backend",
+      "layer": "service",
+      "description": "Resolves a customer email through the provider interface.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/services/service_find_customer.py",
+        "symbol": "service_find_customer",
+        "revision": "step-04-persist-tickets-in-postgresql",
+        "lines": [
+          1,
+          6
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Resolves a customer email through the provider interface.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "lookup",
+          "title": "Lookup",
+          "description": "Use the storage provider to match customer.",
+          "calls": {
+            "component": "be.PostgresTicketStore",
+            "type": "call",
+            "label": "queries"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Added in Step 4."
+      }
+    },
+    {
+      "id": "be.PostgresTicketStore",
+      "name": "PostgresTicketStore",
+      "kind": "class",
+      "side": "backend",
+      "layer": "provider",
+      "description": "Executes parameterized PostgreSQL customer and ticket writes.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/providers/tickets/postgres_ticket_store.py",
+        "symbol": "PostgresTicketStore",
+        "revision": "step-04-persist-tickets-in-postgresql",
+        "lines": [
+          1,
+          36
+        ]
+      },
+      "owner": "feature_tickets",
+      "component_reason": "Executes parameterized PostgreSQL customer and ticket writes.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Added in Step 4."
       }
     }
   ],
