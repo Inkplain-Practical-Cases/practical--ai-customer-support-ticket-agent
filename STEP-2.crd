@@ -5,7 +5,7 @@
   "generated_at": "2026-10-09T16:15:00Z",
   "source": {
     "repo": "github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent",
-    "revision": "step-01-receive-and-store-tickets",
+    "revision": "step-02-classify-support-requests",
     "roots": {
       "backend": "app"
     },
@@ -14,11 +14,11 @@
     ]
   },
   "step": {
-    "no": 1,
+    "no": 2,
     "of": 6,
-    "title": "Receive and store tickets",
-    "branch": "step-01-receive-and-store-tickets",
-    "previous": null,
+    "title": "Classify support requests",
+    "branch": "step-02-classify-support-requests",
+    "previous": "STEP-1.crd",
     "removed": []
   },
   "flows": [
@@ -43,7 +43,7 @@
       "source": {
         "file": "app/features/feature_tickets/router.py",
         "symbol": "create_ticket",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           15
@@ -52,7 +52,7 @@
       "owner": "feature_tickets",
       "component_reason": "Exposes POST /tickets and delegates to ticket orchestration.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -69,7 +69,7 @@
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -85,7 +85,7 @@
       "source": {
         "file": "app/core/dependencies.py",
         "symbol": "get_ticket_store",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           11
@@ -94,7 +94,7 @@
       "owner": "dependencies.py",
       "component_reason": "Reuses one in-memory ticket provider for incoming requests.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -111,7 +111,7 @@
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -127,7 +127,7 @@
       "source": {
         "file": "app/features/feature_tickets/handlers/handle_create_ticket.py",
         "symbol": "handle_create_ticket",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           10
@@ -136,7 +136,7 @@
       "owner": "feature_tickets",
       "component_reason": "Routes a validated customer request to the ticket service.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -149,11 +149,21 @@
             "type": "call",
             "label": "delegates"
           }
+        },
+        {
+          "id": "classify",
+          "title": "Classify request",
+          "description": "Ask the classifier service for intent and urgency.",
+          "calls": {
+            "component": "be.service_classify_request",
+            "type": "call",
+            "label": "classifies"
+          }
         }
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -169,7 +179,7 @@
       "source": {
         "file": "app/features/feature_tickets/services/service_create_ticket.py",
         "symbol": "service_create_ticket",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           10
@@ -178,7 +188,7 @@
       "owner": "feature_tickets",
       "component_reason": "Creates a support ticket through a storage interface.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [
@@ -195,7 +205,7 @@
       ],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -211,7 +221,7 @@
       "source": {
         "file": "app/providers/tickets/in_memory_ticket_store.py",
         "symbol": "InMemoryTicketStore",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           18
@@ -220,13 +230,13 @@
       "owner": "tickets",
       "component_reason": "Stores ticket records in memory with a sequential ID.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -242,7 +252,7 @@
       "source": {
         "file": "app/providers/tickets/base.py",
         "symbol": "TicketStore",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           7
@@ -251,13 +261,13 @@
       "owner": "tickets",
       "component_reason": "Defines a ticket persistence provider interface.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -273,7 +283,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
         "symbol": "TicketCreate",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           16
@@ -282,13 +292,13 @@
       "owner": "feature_tickets",
       "component_reason": "Validates incoming subject, message and email.",
       "status": "observed",
-      "step_change": "added",
+      "step_change": "changed",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
       }
     },
     {
@@ -304,7 +314,7 @@
       "source": {
         "file": "app/features/feature_tickets/schemas/ticket_schemas.py",
         "symbol": "TicketView",
-        "revision": "step-01-receive-and-store-tickets",
+        "revision": "step-02-classify-support-requests",
         "lines": [
           1,
           16
@@ -313,13 +323,190 @@
       "owner": "feature_tickets",
       "component_reason": "Defines the ticket ID and status returned by the API.",
       "status": "observed",
+      "step_change": "changed",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Step 2 adds intent and priority through an injected classifier."
+      }
+    },
+    {
+      "id": "be.get_classifier",
+      "name": "get_classifier",
+      "kind": "function",
+      "side": "backend",
+      "layer": "config",
+      "description": "Caches an offline fake or OpenAI classifier by configuration.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/core/dependencies.py",
+        "symbol": "get_classifier",
+        "revision": "step-02-classify-support-requests",
+        "lines": [
+          1,
+          20
+        ]
+      },
+      "owner": "ticket_classification",
+      "component_reason": "Caches an offline fake or OpenAI classifier by configuration.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "delegate",
+          "title": "Call dependency",
+          "description": "Delegate classification",
+          "calls": {
+            "component": "be.FakeClassifier",
+            "type": "call",
+            "label": "calls"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced by Step 2."
+      }
+    },
+    {
+      "id": "be.service_classify_request",
+      "name": "service_classify_request",
+      "kind": "function",
+      "side": "backend",
+      "layer": "service",
+      "description": "Asks an injected classifier to identify request intent and urgency.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/features/feature_tickets/services/service_classify_request.py",
+        "symbol": "service_classify_request",
+        "revision": "step-02-classify-support-requests",
+        "lines": [
+          1,
+          6
+        ]
+      },
+      "owner": "ticket_classification",
+      "component_reason": "Asks an injected classifier to identify request intent and urgency.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [
+        {
+          "id": "delegate",
+          "title": "Call dependency",
+          "description": "Delegate classification",
+          "calls": {
+            "component": "be.FakeClassifier",
+            "type": "call",
+            "label": "calls"
+          }
+        }
+      ],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced by Step 2."
+      }
+    },
+    {
+      "id": "be.FakeClassifier",
+      "name": "FakeClassifier",
+      "kind": "class",
+      "side": "backend",
+      "layer": "provider",
+      "description": "Classifies sample messages with deterministic keyword rules.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/providers/classifier/fake_classifier.py",
+        "symbol": "FakeClassifier",
+        "revision": "step-02-classify-support-requests",
+        "lines": [
+          1,
+          16
+        ]
+      },
+      "owner": "ticket_classification",
+      "component_reason": "Classifies sample messages with deterministic keyword rules.",
+      "status": "observed",
       "step_change": "added",
       "inputs": [],
       "validations": [],
       "operations": [],
       "outputs": [],
       "attributes": {
-        "step_note": "Introduced in Step 1."
+        "step_note": "Introduced by Step 2."
+      }
+    },
+    {
+      "id": "be.OpenAIClassifier",
+      "name": "OpenAIClassifier",
+      "kind": "class",
+      "side": "backend",
+      "layer": "provider",
+      "description": "Requests JSON intent and priority from OpenAI chat completions.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/providers/classifier/openai_classifier.py",
+        "symbol": "OpenAIClassifier",
+        "revision": "step-02-classify-support-requests",
+        "lines": [
+          1,
+          21
+        ]
+      },
+      "owner": "ticket_classification",
+      "component_reason": "Requests JSON intent and priority from OpenAI chat completions.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced by Step 2."
+      }
+    },
+    {
+      "id": "be.Classifier",
+      "name": "Classifier",
+      "kind": "class",
+      "side": "backend",
+      "layer": "schema",
+      "description": "Defines a common asynchronous classifier contract.",
+      "flows": [
+        "create-ticket"
+      ],
+      "source": {
+        "file": "app/providers/classifier/base.py",
+        "symbol": "Classifier",
+        "revision": "step-02-classify-support-requests",
+        "lines": [
+          1,
+          5
+        ]
+      },
+      "owner": "ticket_classification",
+      "component_reason": "Defines a common asynchronous classifier contract.",
+      "status": "observed",
+      "step_change": "added",
+      "inputs": [],
+      "validations": [],
+      "operations": [],
+      "outputs": [],
+      "attributes": {
+        "step_note": "Introduced by Step 2."
       }
     }
   ],
