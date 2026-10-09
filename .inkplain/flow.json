@@ -98,7 +98,14 @@
         "executors": 98,
         "missing_linked_documents": 0
       }
+    },
+    "content": {
+      "status": "in_progress",
+      "summary": "Preparing Gate 3 content plan only; no categories or items created until user approves. Six STEP-N.crd and .inkp checked; 24 FINAL CRD components have exactly one added step. Stage 2 and Stage 3 done.",
+      "started_at": "2026-10-09T17:02:22.889Z",
+      "finished_at": null,
+      "updated_by": "api-key:for-chatgpt-test-2"
     }
   },
-  "updated_at": "2026-10-09T17:00:51.499Z"
+  "updated_at": "2026-10-09T17:02:22.889Z"
 }
