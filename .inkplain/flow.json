@@ -1,0 +1,104 @@
+{
+  "practical_case": {
+    "id": "LWkBP5k9d7sqNkELGYcU",
+    "slug": "ai-customer-support-ticket-agent",
+    "name": "AI Customer Support Ticket Agent"
+  },
+  "current": "content",
+  "stages": {
+    "intro": {
+      "status": "done",
+      "summary": "Gate 1 approved. Created Northstar Support beginner FDE case with six beginner-level profile skills and seven detailed introduction sections. Read-back confirmed case, skills, intro and zero categories. Repository not created; waiting for explicit 'davam ele' before Stage 2.",
+      "started_at": "2026-10-09T15:40:15.020Z",
+      "finished_at": "2026-10-09T15:41:25.235Z",
+      "updated_by": "api-key:for-chatgpt-test-2",
+      "outputs": {
+        "portal_url": "/practical-case/ai-customer-support-ticket-agent",
+        "profile": "forward-deployed-engineering",
+        "skills": [
+          "developing-apis-with-fastapi",
+          "implementing-intent-entity-detection",
+          "implementing-structured-output-parsing",
+          "implementing-input-validation",
+          "integrating-postgresql",
+          "implementing-tool-invocation"
+        ],
+        "intro_sections": 7
+      }
+    },
+    "repo": {
+      "status": "done",
+      "summary": "Six cumulative step branches and final main repository completed. GitHub Actions matrix configured to run pytest for STEP-1 through STEP-6 plus main (7 jobs); user supplied screenshot showing the overall 'Validate every learning branch' workflow completed successfully (green check, 31 seconds, commit 75fedf3). Individual job logs were not inspected; successful overall non-continue-on-error workflow implies matrix jobs succeeded. .inkp Stage 3 already done.",
+      "started_at": "2026-10-09T16:10:34.364Z",
+      "finished_at": "2026-10-09T17:00:51.499Z",
+      "updated_by": "api-key:for-chatgpt-test-2",
+      "outputs": {
+        "repo_url": "https://github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent",
+        "steps": [
+          {
+            "no": 1,
+            "title": "Receive and store tickets",
+            "branch": "step-01-receive-and-store-tickets"
+          },
+          {
+            "no": 2,
+            "title": "Classify support requests",
+            "branch": "step-02-classify-support-requests"
+          },
+          {
+            "no": 3,
+            "title": "Validate AI output",
+            "branch": "step-03-validate-ai-output"
+          },
+          {
+            "no": 4,
+            "title": "Persist tickets in PostgreSQL",
+            "branch": "step-04-persist-tickets-in-postgresql"
+          },
+          {
+            "no": 5,
+            "title": "Invoke ticket tools",
+            "branch": "step-05-invoke-ticket-tools"
+          },
+          {
+            "no": 6,
+            "title": "Harden and verify",
+            "branch": "step-06-harden-and-verify"
+          }
+        ],
+        "source_verified": true,
+        "tests_executed": true,
+        "ci_blocker": null,
+        "inkp_pending": true,
+        "ci_workflow_url": "https://github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent/actions/workflows/tests.yml",
+        "ci_workflow_committed": true,
+        "ci_jobs_configured": 7,
+        "ci_overall_status": "success (confirmed by GitHub Actions screenshot)",
+        "ci_job_details_inspected": false
+      }
+    },
+    "inkp": {
+      "status": "done",
+      "summary": "User requested to proceed with Stage 3 despite repository tests remaining unexecuted. Generated and committed ai-customer-support-ticket-agent.inkp on main from all six STEP-N.crd branches; 6 ordered tabs, 98 Process Executor documents and 104 total documents. get_inkp_summary verified 0 missing linked documents. Stage 2 repo remains in_progress (tests not verified); Stage 4 not started.",
+      "started_at": "2026-10-09T16:29:30.141Z",
+      "finished_at": "2026-10-09T16:31:55.141Z",
+      "updated_by": "api-key:for-chatgpt-test-2",
+      "outputs": {
+        "inkp_path": "ai-customer-support-ticket-agent.inkp",
+        "inkp_url": "https://github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent/blob/main/ai-customer-support-ticket-agent.inkp",
+        "tabs": [
+          "STEP-1",
+          "STEP-2",
+          "STEP-3",
+          "STEP-4",
+          "STEP-5",
+          "STEP-6"
+        ],
+        "documents": 104,
+        "executors": 98,
+        "missing_linked_documents": 0
+      }
+    }
+  },
+  "updated_at": "2026-10-09T17:00:51.499Z"
+}
