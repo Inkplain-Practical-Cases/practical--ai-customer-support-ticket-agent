@@ -4,7 +4,7 @@
     "slug": "ai-customer-support-ticket-agent",
     "name": "AI Customer Support Ticket Agent"
   },
-  "current": "content",
+  "current": "done",
   "stages": {
     "intro": {
       "status": "done",
@@ -100,12 +100,31 @@
       }
     },
     "content": {
-      "status": "in_progress",
-      "summary": "Preparing Gate 3 content plan only; no categories or items created until user approves. Six STEP-N.crd and .inkp checked; 24 FINAL CRD components have exactly one added step. Stage 2 and Stage 3 done.",
+      "status": "done",
+      "summary": "Gate 3 approved and Stage 4 published. Created 8 categories and 45 practical case items: Overview 18 (2 foundations + 16 beginner terms), 6 steps × 4 items (24), Conclusion 3. All 6 step System design items include matching STEP-N inkp_visualization, CRD tree with entire 6-step matrix and dedicated component explanation immediately followed by exact-branch/github_file (verified against all 98 component occurrences). Components items have per-added/changed 4M and matching github_file adjacency; Implementation lessons include exact branch source links and code excerpts/line guides. MCP read-back: 8 categories, 45 item counts, 6 tabs and 0 missing linked documents. Stage 2 GitHub CI overall success confirmed from user screenshot; individual CI job logs not inspected.",
       "started_at": "2026-10-09T17:02:22.889Z",
-      "finished_at": null,
-      "updated_by": "api-key:for-chatgpt-test-2"
+      "finished_at": "2026-10-09T17:33:44.968Z",
+      "updated_by": "api-key:for-chatgpt-test-2",
+      "outputs": {
+        "portal_url": "/practical-case/ai-customer-support-ticket-agent",
+        "categories": 8,
+        "items": 45,
+        "overview_items": 18,
+        "step_items": 24,
+        "conclusion_items": 3,
+        "inkp_url": "https://github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent/blob/main/ai-customer-support-ticket-agent.inkp",
+        "tabs": [
+          "STEP-1",
+          "STEP-2",
+          "STEP-3",
+          "STEP-4",
+          "STEP-5",
+          "STEP-6"
+        ],
+        "source_link_validation": "passed for all System design and added/changed Components explanations",
+        "missing_linked_documents": 0
+      }
     }
   },
-  "updated_at": "2026-10-09T17:02:22.889Z"
+  "updated_at": "2026-10-09T17:33:44.968Z"
 }
