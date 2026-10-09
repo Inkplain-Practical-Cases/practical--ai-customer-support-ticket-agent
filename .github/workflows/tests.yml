@@ -1,0 +1,40 @@
+name: Validate every learning branch
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    name: Test ${{ matrix.branch }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch:
+          - step-01-receive-and-store-tickets
+          - step-02-classify-support-requests
+          - step-03-validate-ai-output
+          - step-04-persist-tickets-in-postgresql
+          - step-05-invoke-ticket-tools
+          - step-06-harden-and-verify
+          - main
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run tests
+        env:
+          TICKET_STORE: memory
+          CLASSIFIER_PROVIDER: fake
+        run: python -m pytest -q
