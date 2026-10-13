@@ -19,3 +19,6 @@ Run tests/test_tool_execution.py. A matching model tool proposal creates one tic
 STEP-5 is added to the .inkp during Stage 3.
 ## Next
 Step 6 adds failure recovery, structured logging and end-to-end checks.
+
+## Database (Entity) Relations
+PostgreSQL tables `customers` and `tickets` are retained in STEP-5. Refer to `STEP-5.erd` and the main .inkp tab `STEP-5-ERD`. `tickets.customer_id` is an optional BIGINT FK referencing `customers.id`; customer email is unique. This is the actual `database/init.sql` schema. STEP-1..3 use only memory storage and do not have PostgreSQL tables.
