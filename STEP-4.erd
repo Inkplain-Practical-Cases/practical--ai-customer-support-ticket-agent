@@ -1,0 +1,84 @@
+{
+  "erd_version": 1,
+  "name": "ai-customer-support-ticket-agent",
+  "step": 4,
+  "engine": "postgresql",
+  "generated_from": [
+    "database/init.sql",
+    "app/providers/tickets/postgres_ticket_store.py"
+  ],
+  "entities": [
+    {
+      "name": "customers",
+      "kind": "table",
+      "source": "database/init.sql: CREATE TABLE customers",
+      "description": "Real PostgreSQL customer lookup for matching support tickets, with unique email.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BIGSERIAL",
+          "key": "PK"
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "nullable": false,
+          "unique": true
+        }
+      ],
+      "step_change": "added"
+    },
+    {
+      "name": "tickets",
+      "kind": "table",
+      "source": "database/init.sql: CREATE TABLE tickets",
+      "description": "Submitted customer support tickets linked to customers, with classification and current status.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "BIGSERIAL",
+          "key": "PK"
+        },
+        {
+          "name": "customer_id",
+          "type": "BIGINT",
+          "references": "customers.id"
+        },
+        {
+          "name": "subject",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "message",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "intent",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "priority",
+          "type": "TEXT",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "nullable": false,
+          "default": "'open'"
+        },
+        {
+          "name": "created_at",
+          "type": "TIMESTAMPTZ",
+          "nullable": false,
+          "default": "now()"
+        }
+      ],
+      "step_change": "added"
+    }
+  ],
+  "relations": []
+}

@@ -22,3 +22,6 @@ Offline pytest includes customer matching. With Docker Postgres up, POST /ticket
 STEP-4 is authored in Stage 3.
 ## Next
 Step 5 adds trusted, backend-validated AI tool execution.
+
+## Database (Entity) Relations
+PostgreSQL tables `customers` and `tickets` are introduced in STEP-4. Refer to `STEP-4.erd` and the main .inkp tab `STEP-4-ERD`. `tickets.customer_id` is an optional BIGINT FK referencing `customers.id`; customer email is unique. This is the actual `database/init.sql` schema. STEP-1..3 use only memory storage and do not have PostgreSQL tables.
