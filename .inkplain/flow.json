@@ -79,24 +79,25 @@
     },
     "inkp": {
       "status": "done",
-      "summary": "User requested to proceed with Stage 3 despite repository tests remaining unexecuted. Generated and committed ai-customer-support-ticket-agent.inkp on main from all six STEP-N.crd branches; 6 ordered tabs, 98 Process Executor documents and 104 total documents. get_inkp_summary verified 0 missing linked documents. Stage 2 repo remains in_progress (tests not verified); Stage 4 not started.",
+      "summary": "Three real PostgreSQL customer-ticket schema ERDs embedded in main .inkp for STEPs 4-6, preserving 6 flow tabs. MCP read-back: 9 tabs, zero broken links.",
       "started_at": "2026-10-09T16:29:30.141Z",
       "finished_at": "2026-10-09T16:31:55.141Z",
       "updated_by": "api-key:for-chatgpt-test-2",
       "outputs": {
         "inkp_path": "ai-customer-support-ticket-agent.inkp",
         "inkp_url": "https://github.com/Inkplain-Practical-Cases/practical--ai-customer-support-ticket-agent/blob/main/ai-customer-support-ticket-agent.inkp",
-        "tabs": [
-          "STEP-1",
-          "STEP-2",
-          "STEP-3",
-          "STEP-4",
-          "STEP-5",
-          "STEP-6"
-        ],
+        "tabs": 9,
         "documents": 104,
         "executors": 98,
-        "missing_linked_documents": 0
+        "missing_linked_documents": 0,
+        "erd_tabs": [
+          "STEP-4-ERD",
+          "STEP-5-ERD",
+          "STEP-6-ERD"
+        ],
+        "erd_entities": 2,
+        "erd_relations": 1,
+        "missing_links": 0
       }
     },
     "content": {
@@ -126,5 +127,5 @@
       }
     }
   },
-  "updated_at": "2026-10-09T17:33:44.968Z"
+  "updated_at": "2026-10-13T11:58:46.892Z"
 }
