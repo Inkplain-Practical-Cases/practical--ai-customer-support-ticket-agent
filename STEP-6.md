@@ -19,3 +19,6 @@ POST a billing request and check intent=billing and a ticket ID. Offline tests v
 The STEP-6 tab is produced in Stage 3 after approval.
 ## Next
 This is the final implementation; main will hold the same code and FINAL.crd.
+
+## Database (Entity) Relations
+PostgreSQL tables `customers` and `tickets` are retained in STEP-6. Refer to `STEP-6.erd` and the main .inkp tab `STEP-6-ERD`. `tickets.customer_id` is an optional BIGINT FK referencing `customers.id`; customer email is unique. This is the actual `database/init.sql` schema. STEP-1..3 use only memory storage and do not have PostgreSQL tables.
