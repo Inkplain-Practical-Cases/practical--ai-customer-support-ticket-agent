@@ -102,7 +102,7 @@
     },
     "content": {
       "status": "done",
-      "summary": "Gate 3 approved and Stage 4 published. Created 8 categories and 45 practical case items: Overview 18 (2 foundations + 16 beginner terms), 6 steps × 4 items (24), Conclusion 3. All 6 step System design items include matching STEP-N inkp_visualization, CRD tree with entire 6-step matrix and dedicated component explanation immediately followed by exact-branch/github_file (verified against all 98 component occurrences). Components items have per-added/changed 4M and matching github_file adjacency; Implementation lessons include exact branch source links and code excerpts/line guides. MCP read-back: 8 categories, 45 item counts, 6 tabs and 0 missing linked documents. Stage 2 GitHub CI overall success confirmed from user screenshot; individual CI job logs not inspected.",
+      "summary": "Separate Database (Entity) Relations lesson inserted after System design in STEP-4, STEP-5 and STEP-6; source SQL, FK and ERD visualizations included.",
       "started_at": "2026-10-09T17:02:22.889Z",
       "finished_at": "2026-10-09T17:33:44.968Z",
       "updated_by": "api-key:for-chatgpt-test-2",
@@ -123,9 +123,17 @@
           "STEP-6"
         ],
         "source_link_validation": "passed for all System design and added/changed Components explanations",
-        "missing_linked_documents": 0
+        "missing_linked_documents": 0,
+        "erd_lessons_created": 3,
+        "erd_visualizations": [
+          "STEP-4-ERD",
+          "STEP-5-ERD",
+          "STEP-6-ERD"
+        ],
+        "erd_item_title": "Database (Entity) Relations",
+        "content_verified": true
       }
     }
   },
-  "updated_at": "2026-10-13T11:58:46.892Z"
+  "updated_at": "2026-10-13T11:58:52.201Z"
 }
