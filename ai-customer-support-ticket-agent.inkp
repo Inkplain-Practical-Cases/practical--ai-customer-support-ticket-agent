@@ -13437,6 +13437,681 @@
           }
         ]
       }
+    },
+    {
+      "path": "diagram_canvas/erd-ai-customer-support-ticket-agent-step-4",
+      "data": {
+        "name": "STEP-4-ERD",
+        "nodes": [
+          {
+            "id": "ent-customers",
+            "type": "diagramNode",
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "width": 260,
+            "height": 150,
+            "data": {
+              "label": "customers",
+              "shape": "entity-table",
+              "color": "#52c41a",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "fields": [
+                {
+                  "id": "customers-id",
+                  "name": "id",
+                  "type": "BIGSERIAL",
+                  "key": "PK"
+                },
+                {
+                  "id": "customers-email",
+                  "name": "email",
+                  "type": "TEXT",
+                  "key": ""
+                }
+              ],
+              "nodeAttributes": [
+                {
+                  "key": "kind",
+                  "value": "table"
+                },
+                {
+                  "key": "step_change",
+                  "value": "added"
+                },
+                {
+                  "key": "description",
+                  "value": "Real PostgreSQL customer lookup for matching support tickets, with unique email."
+                },
+                {
+                  "key": "source",
+                  "value": "database/init.sql: CREATE TABLE customers"
+                },
+                {
+                  "key": "field:id",
+                  "value": "BIGSERIAL, PK"
+                },
+                {
+                  "key": "field:email",
+                  "value": "TEXT, not null, unique"
+                }
+              ],
+              "config": {}
+            }
+          },
+          {
+            "id": "ent-tickets",
+            "type": "diagramNode",
+            "position": {
+              "x": 340,
+              "y": 0
+            },
+            "width": 260,
+            "height": 220,
+            "data": {
+              "label": "tickets",
+              "shape": "entity-table",
+              "color": "#52c41a",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "fields": [
+                {
+                  "id": "tickets-id",
+                  "name": "id",
+                  "type": "BIGSERIAL",
+                  "key": "PK"
+                },
+                {
+                  "id": "tickets-customer-id",
+                  "name": "customer_id",
+                  "type": "BIGINT",
+                  "key": "FK"
+                },
+                {
+                  "id": "tickets-subject",
+                  "name": "subject",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-message",
+                  "name": "message",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-intent",
+                  "name": "intent",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-priority",
+                  "name": "priority",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-status",
+                  "name": "status",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-created-at",
+                  "name": "created_at",
+                  "type": "TIMESTAMPTZ",
+                  "key": ""
+                }
+              ],
+              "nodeAttributes": [
+                {
+                  "key": "kind",
+                  "value": "table"
+                },
+                {
+                  "key": "step_change",
+                  "value": "added"
+                },
+                {
+                  "key": "description",
+                  "value": "Submitted customer support tickets linked to customers, with classification and current status."
+                },
+                {
+                  "key": "source",
+                  "value": "database/init.sql: CREATE TABLE tickets"
+                },
+                {
+                  "key": "field:id",
+                  "value": "BIGSERIAL, PK"
+                },
+                {
+                  "key": "field:customer_id",
+                  "value": "BIGINT, FK, → customers.id"
+                },
+                {
+                  "key": "field:subject",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:message",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:intent",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:priority",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:status",
+                  "value": "TEXT, not null, default 'open'"
+                },
+                {
+                  "key": "field:created_at",
+                  "value": "TIMESTAMPTZ, not null, default now()"
+                }
+              ],
+              "config": {}
+            }
+          },
+          {
+            "id": "ent-legend",
+            "type": "diagramNode",
+            "position": {
+              "x": 0,
+              "y": 280
+            },
+            "width": 260,
+            "height": 120,
+            "data": {
+              "label": "This step's database:\ngreen = added\nPK = primary key · FK = foreign key",
+              "shape": "note",
+              "color": "#d4b106",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "config": {}
+            }
+          }
+        ],
+        "edges": [
+          {
+            "id": "rel-tickets-customer-id-customers-id",
+            "source": "ent-tickets",
+            "target": "ent-customers",
+            "sourceHandle": "l",
+            "targetHandle": "r",
+            "type": "smoothstep",
+            "label": "n .. 1",
+            "data": {
+              "color": "#595959",
+              "lineStyle": "solid",
+              "markerStartShape": "none",
+              "markerEndShape": "arrowclosed",
+              "pathType": "orthogonal",
+              "strokeWidth": 1
+            }
+          }
+        ],
+        "order": 9
+      }
+    },
+    {
+      "path": "diagram_canvas/erd-ai-customer-support-ticket-agent-step-5",
+      "data": {
+        "name": "STEP-5-ERD",
+        "nodes": [
+          {
+            "id": "ent-customers",
+            "type": "diagramNode",
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "width": 260,
+            "height": 150,
+            "data": {
+              "label": "customers",
+              "shape": "entity-table",
+              "color": "#8c8c8c",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "fields": [
+                {
+                  "id": "customers-id",
+                  "name": "id",
+                  "type": "BIGSERIAL",
+                  "key": "PK"
+                },
+                {
+                  "id": "customers-email",
+                  "name": "email",
+                  "type": "TEXT",
+                  "key": ""
+                }
+              ],
+              "nodeAttributes": [
+                {
+                  "key": "kind",
+                  "value": "table"
+                },
+                {
+                  "key": "step_change",
+                  "value": "unchanged"
+                },
+                {
+                  "key": "description",
+                  "value": "Real PostgreSQL customer lookup for matching support tickets, with unique email."
+                },
+                {
+                  "key": "source",
+                  "value": "database/init.sql: CREATE TABLE customers"
+                },
+                {
+                  "key": "field:id",
+                  "value": "BIGSERIAL, PK"
+                },
+                {
+                  "key": "field:email",
+                  "value": "TEXT, not null, unique"
+                }
+              ],
+              "config": {}
+            }
+          },
+          {
+            "id": "ent-tickets",
+            "type": "diagramNode",
+            "position": {
+              "x": 340,
+              "y": 0
+            },
+            "width": 260,
+            "height": 220,
+            "data": {
+              "label": "tickets",
+              "shape": "entity-table",
+              "color": "#8c8c8c",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "fields": [
+                {
+                  "id": "tickets-id",
+                  "name": "id",
+                  "type": "BIGSERIAL",
+                  "key": "PK"
+                },
+                {
+                  "id": "tickets-customer-id",
+                  "name": "customer_id",
+                  "type": "BIGINT",
+                  "key": "FK"
+                },
+                {
+                  "id": "tickets-subject",
+                  "name": "subject",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-message",
+                  "name": "message",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-intent",
+                  "name": "intent",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-priority",
+                  "name": "priority",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-status",
+                  "name": "status",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-created-at",
+                  "name": "created_at",
+                  "type": "TIMESTAMPTZ",
+                  "key": ""
+                }
+              ],
+              "nodeAttributes": [
+                {
+                  "key": "kind",
+                  "value": "table"
+                },
+                {
+                  "key": "step_change",
+                  "value": "unchanged"
+                },
+                {
+                  "key": "description",
+                  "value": "Submitted customer support tickets linked to customers, with classification and current status."
+                },
+                {
+                  "key": "source",
+                  "value": "database/init.sql: CREATE TABLE tickets"
+                },
+                {
+                  "key": "field:id",
+                  "value": "BIGSERIAL, PK"
+                },
+                {
+                  "key": "field:customer_id",
+                  "value": "BIGINT, FK, → customers.id"
+                },
+                {
+                  "key": "field:subject",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:message",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:intent",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:priority",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:status",
+                  "value": "TEXT, not null, default 'open'"
+                },
+                {
+                  "key": "field:created_at",
+                  "value": "TIMESTAMPTZ, not null, default now()"
+                }
+              ],
+              "config": {}
+            }
+          },
+          {
+            "id": "ent-legend",
+            "type": "diagramNode",
+            "position": {
+              "x": 0,
+              "y": 280
+            },
+            "width": 260,
+            "height": 120,
+            "data": {
+              "label": "This step's database:\ngrey = unchanged\nPK = primary key · FK = foreign key",
+              "shape": "note",
+              "color": "#d4b106",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "config": {}
+            }
+          }
+        ],
+        "edges": [
+          {
+            "id": "rel-tickets-customer-id-customers-id",
+            "source": "ent-tickets",
+            "target": "ent-customers",
+            "sourceHandle": "l",
+            "targetHandle": "r",
+            "type": "smoothstep",
+            "label": "n .. 1",
+            "data": {
+              "color": "#8c8c8c",
+              "lineStyle": "solid",
+              "markerStartShape": "none",
+              "markerEndShape": "arrowclosed",
+              "pathType": "orthogonal",
+              "strokeWidth": 1
+            }
+          }
+        ],
+        "order": 10
+      }
+    },
+    {
+      "path": "diagram_canvas/erd-ai-customer-support-ticket-agent-step-6",
+      "data": {
+        "name": "STEP-6-ERD",
+        "nodes": [
+          {
+            "id": "ent-customers",
+            "type": "diagramNode",
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "width": 260,
+            "height": 150,
+            "data": {
+              "label": "customers",
+              "shape": "entity-table",
+              "color": "#8c8c8c",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "fields": [
+                {
+                  "id": "customers-id",
+                  "name": "id",
+                  "type": "BIGSERIAL",
+                  "key": "PK"
+                },
+                {
+                  "id": "customers-email",
+                  "name": "email",
+                  "type": "TEXT",
+                  "key": ""
+                }
+              ],
+              "nodeAttributes": [
+                {
+                  "key": "kind",
+                  "value": "table"
+                },
+                {
+                  "key": "step_change",
+                  "value": "unchanged"
+                },
+                {
+                  "key": "description",
+                  "value": "Real PostgreSQL customer lookup for matching support tickets, with unique email."
+                },
+                {
+                  "key": "source",
+                  "value": "database/init.sql: CREATE TABLE customers"
+                },
+                {
+                  "key": "field:id",
+                  "value": "BIGSERIAL, PK"
+                },
+                {
+                  "key": "field:email",
+                  "value": "TEXT, not null, unique"
+                }
+              ],
+              "config": {}
+            }
+          },
+          {
+            "id": "ent-tickets",
+            "type": "diagramNode",
+            "position": {
+              "x": 340,
+              "y": 0
+            },
+            "width": 260,
+            "height": 220,
+            "data": {
+              "label": "tickets",
+              "shape": "entity-table",
+              "color": "#8c8c8c",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "fields": [
+                {
+                  "id": "tickets-id",
+                  "name": "id",
+                  "type": "BIGSERIAL",
+                  "key": "PK"
+                },
+                {
+                  "id": "tickets-customer-id",
+                  "name": "customer_id",
+                  "type": "BIGINT",
+                  "key": "FK"
+                },
+                {
+                  "id": "tickets-subject",
+                  "name": "subject",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-message",
+                  "name": "message",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-intent",
+                  "name": "intent",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-priority",
+                  "name": "priority",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-status",
+                  "name": "status",
+                  "type": "TEXT",
+                  "key": ""
+                },
+                {
+                  "id": "tickets-created-at",
+                  "name": "created_at",
+                  "type": "TIMESTAMPTZ",
+                  "key": ""
+                }
+              ],
+              "nodeAttributes": [
+                {
+                  "key": "kind",
+                  "value": "table"
+                },
+                {
+                  "key": "step_change",
+                  "value": "unchanged"
+                },
+                {
+                  "key": "description",
+                  "value": "Submitted customer support tickets linked to customers, with classification and current status."
+                },
+                {
+                  "key": "source",
+                  "value": "database/init.sql: CREATE TABLE tickets"
+                },
+                {
+                  "key": "field:id",
+                  "value": "BIGSERIAL, PK"
+                },
+                {
+                  "key": "field:customer_id",
+                  "value": "BIGINT, FK, → customers.id"
+                },
+                {
+                  "key": "field:subject",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:message",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:intent",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:priority",
+                  "value": "TEXT, not null"
+                },
+                {
+                  "key": "field:status",
+                  "value": "TEXT, not null, default 'open'"
+                },
+                {
+                  "key": "field:created_at",
+                  "value": "TIMESTAMPTZ, not null, default now()"
+                }
+              ],
+              "config": {}
+            }
+          },
+          {
+            "id": "ent-legend",
+            "type": "diagramNode",
+            "position": {
+              "x": 0,
+              "y": 280
+            },
+            "width": 260,
+            "height": 120,
+            "data": {
+              "label": "This step's database:\ngrey = unchanged\nPK = primary key · FK = foreign key",
+              "shape": "note",
+              "color": "#d4b106",
+              "emoji": "",
+              "icon": "",
+              "body": "",
+              "config": {}
+            }
+          }
+        ],
+        "edges": [
+          {
+            "id": "rel-tickets-customer-id-customers-id",
+            "source": "ent-tickets",
+            "target": "ent-customers",
+            "sourceHandle": "l",
+            "targetHandle": "r",
+            "type": "smoothstep",
+            "label": "n .. 1",
+            "data": {
+              "color": "#8c8c8c",
+              "lineStyle": "solid",
+              "markerStartShape": "none",
+              "markerEndShape": "arrowclosed",
+              "pathType": "orthogonal",
+              "strokeWidth": 1
+            }
+          }
+        ],
+        "order": 11
+      }
     }
   ]
 }
